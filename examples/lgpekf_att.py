@@ -480,6 +480,7 @@ for k in hist.keys():
     for i in range(vals.shape[1]):
         data['{:s}_{:d}'.format(k, i)] = hist[k][:, i]
 res = pd.DataFrame(data=data, index=pd.Float64Index(np.reshape(hist['t'], -1)))
+
 with open('results.csv', 'w') as f:
     f.write(res.to_csv())
 
@@ -492,3 +493,9 @@ install_dir = os.path.abspath(os.path.join(os.environ['HOME'], 'git/phd/px4/src/
 if not os.path.exists(install_dir):
     os.mkdir(install_dir)
 gen.generate(install_dir + os.path.sep)
+
+# pickle functions for python
+import pickle
+pkl_path = os.path.join(os.path.dirname(__file__), 'sim_funcs.pkl')
+with open(pkl_path, 'wb') as f:
+    pickle.dump(sim_funcs, f)
